@@ -6,7 +6,7 @@ import java.awt.TextArea
 import javax.swing.JFrame
 import javax.swing.JPanel
 
-class PrintLogView(
+class EasyPrintLogGUI(
     title: String,
     font: Font = Font("", 1, 24),
     width: Int = 800,
