@@ -16,7 +16,7 @@ allprojects {
 เพิ่ม dependency
 ```
 dependencies {
-    implementation "com.github.lionants02:EasyPrintLogGUI:$latestVersion"
+    compile "com.github.lionants02:EasyPrintLogGUI:$latestVersion"
 }
 ```
 
