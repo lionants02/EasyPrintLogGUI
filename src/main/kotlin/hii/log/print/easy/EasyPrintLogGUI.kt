@@ -1,10 +1,7 @@
 package hii.log.print.easy
 
-import java.awt.BorderLayout
 import java.awt.Font
-import java.awt.TextArea
 import javax.swing.JFrame
-import javax.swing.JPanel
 
 class EasyPrintLogGUI(
     title: String,
@@ -14,58 +11,32 @@ class EasyPrintLogGUI(
     lineLimit: Int = 10
 ) : JFrame() {
 
-    private var textArea: TextArea? = null
+    private lateinit var myFrame: MyFrame
+
     var withCommand = false
 
     var text: String
         get() =
             if (!withCommand)
-                textArea!!.text
+                myFrame.text
             else
                 ""
         set(value) {
             if (withCommand)
                 println(this)
             else
-                textArea?.append("\n $value")
+                myFrame.text = ("$value\n")
         }
 
     fun clean() {
         if (!withCommand)
-            textArea?.text = ""
+            myFrame.clean()
     }
 
     init {
         try {
-            setSize(width, height)
-            setLocationRelativeTo(null)
-
-            this.title = title
-            textArea = object : TextArea() {
-                override fun append(str: String?) {
-                    var line = text.split("\n").size
-
-                    while (line > lineLimit - 1) {
-                        val fle = text.indexOf("\n")
-                        super.replaceRange("", 0, fle + 1)
-                        line = text.split("\n").size
-                    }
-
-                    super.append(str)
-                }
-            }
-            textArea!!.isEditable = false
-
-            textArea!!.font = font
-
-            val panel = JPanel()
-            panel.layout = BorderLayout()
-            panel.add(textArea)
-            contentPane.add(panel)
-            defaultCloseOperation = JFrame.EXIT_ON_CLOSE
-            isVisible = true
+            myFrame = MyFrame(title, font, width, height, lineLimit)
         } catch (ex: java.awt.HeadlessException) {
-            ex.printStackTrace()
             withCommand = true
         }
     }
