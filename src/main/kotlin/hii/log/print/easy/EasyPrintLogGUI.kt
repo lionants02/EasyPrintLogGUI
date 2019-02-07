@@ -14,44 +14,59 @@ class EasyPrintLogGUI(
     lineLimit: Int = 10
 ) : JFrame() {
 
-    private val textArea: TextArea
+    private var textArea: TextArea? = null
+    var withCommand = false
 
-    var text
-        get() = textArea.text
+    var text: String
+        get() =
+            if (!withCommand)
+                textArea!!.text
+            else
+                ""
         set(value) {
-            textArea.append("\n $value")
+            if (withCommand)
+                println(this)
+            else
+                textArea?.append("\n $value")
         }
 
     fun clean() {
-        textArea.text = ""
+        if (!withCommand)
+            textArea?.text = ""
     }
 
     init {
-        setSize(width, height)
-        setLocationRelativeTo(null)
-        this.title = title
-        textArea = object : TextArea() {
-            override fun append(str: String?) {
-                var line = text.split("\n").size
+        try {
+            setSize(width, height)
+            setLocationRelativeTo(null)
 
-                while (line > lineLimit - 1) {
-                    val fle = text.indexOf("\n")
-                    super.replaceRange("", 0, fle + 1)
-                    line = text.split("\n").size
+            this.title = title
+            textArea = object : TextArea() {
+                override fun append(str: String?) {
+                    var line = text.split("\n").size
+
+                    while (line > lineLimit - 1) {
+                        val fle = text.indexOf("\n")
+                        super.replaceRange("", 0, fle + 1)
+                        line = text.split("\n").size
+                    }
+
+                    super.append(str)
                 }
-
-                super.append(str)
             }
+            textArea!!.isEditable = false
+
+            textArea!!.font = font
+
+            val panel = JPanel()
+            panel.layout = BorderLayout()
+            panel.add(textArea)
+            contentPane.add(panel)
+            defaultCloseOperation = JFrame.EXIT_ON_CLOSE
+            isVisible = true
+        } catch (ex: java.awt.HeadlessException) {
+            ex.printStackTrace()
+            withCommand = true
         }
-        textArea.isEditable = false
-
-        textArea.font = font
-
-        val panel = JPanel()
-        panel.layout = BorderLayout()
-        panel.add(textArea)
-        contentPane.add(panel)
-        defaultCloseOperation = JFrame.EXIT_ON_CLOSE
-        isVisible = true
     }
 }
