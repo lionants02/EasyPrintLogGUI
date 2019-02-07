@@ -27,7 +27,7 @@ internal class MyFrame(
             if (withCommand)
                 println(this)
             else
-                textArea?.append("\n $value")
+                textArea?.append("$value\n")
         }
 
     fun clean() {

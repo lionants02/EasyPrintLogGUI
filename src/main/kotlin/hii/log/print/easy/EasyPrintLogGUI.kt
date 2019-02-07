@@ -24,7 +24,7 @@ class EasyPrintLogGUI(
             if (withCommand)
                 println(this)
             else
-                myFrame.text = ("$value\n")
+                myFrame.text = value
         }
 
     fun clean() {
