@@ -1,7 +1,6 @@
 package hii.log.print.easy
 
 import java.awt.Font
-import javax.swing.JFrame
 
 class EasyPrintLogGUI(
     title: String,
@@ -9,7 +8,7 @@ class EasyPrintLogGUI(
     width: Int = 800,
     height: Int = 600,
     lineLimit: Int = 10
-) : JFrame() {
+) {
 
     private lateinit var myFrame: MyFrame
 
