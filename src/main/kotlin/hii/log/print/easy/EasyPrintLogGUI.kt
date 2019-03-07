@@ -1,6 +1,7 @@
 package hii.log.print.easy
 
 import java.awt.Font
+import java.awt.Frame
 
 class EasyPrintLogGUI(
     title: String,
@@ -30,6 +31,22 @@ class EasyPrintLogGUI(
     fun clean() {
         if (!withCommand)
             myFrame.clean()
+    }
+
+    fun minimize() {
+        myFrame.state = Frame.ICONIFIED
+    }
+
+    fun hideWindows() {
+        myFrame.isVisible = false
+    }
+
+    fun showWindows() {
+        myFrame.isVisible = true
+    }
+
+    fun switchShowHideWindows() {
+        myFrame.isVisible = !myFrame.isVisible
     }
 
     init {
